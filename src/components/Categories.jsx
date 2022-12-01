@@ -15,6 +15,7 @@ function Categories(props) {
         {arrayOfCategories.map((elem, index) => {
           return (
             <li
+              key={index}
               className={active === index ? 'active' : ''}
               onClick={() => setActiveHandler(index)}>
               {elem}

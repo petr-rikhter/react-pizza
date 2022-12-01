@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Sort(props) {
+  const [visibleSort, setVisibleSort] = useState(false);
+  const [toggleSort, setToggleSort] = useState(0);
+
+  const arrayOfSort = ['популярности', 'цене', 'алфавиту'];
+
+  const selectedHandler = (index) => {
+    setToggleSort(index);
+    setVisibleSort(!visibleSort);
+  };
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -16,15 +26,29 @@ function Sort(props) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span
+          onClick={() => {
+            setVisibleSort(!visibleSort);
+          }}>
+          {arrayOfSort[toggleSort]}
+        </span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {visibleSort && (
+        <div className="sort__popup">
+          <ul>
+            {arrayOfSort.map((elem, index) => {
+              return (
+                <li
+                  className={toggleSort === index ? 'active' : ''}
+                  onClick={() => selectedHandler(index)}
+                  key={index}>
+                  {elem}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
