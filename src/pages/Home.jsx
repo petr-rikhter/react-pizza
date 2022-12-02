@@ -16,10 +16,12 @@ function Home(props) {
         setItems(json);
         setIsLoading(false);
       });
+
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -32,7 +34,7 @@ function Home(props) {
               return <PizzaBlock key={elem.id} {...elem}></PizzaBlock>;
             })}
       </div>
-    </>
+    </div>
   );
 }
 

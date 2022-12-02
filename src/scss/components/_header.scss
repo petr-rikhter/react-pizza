@@ -4,10 +4,31 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  &__label {
+    @media (max-width: 651px) {
+      p {
+        display: none;
+      }
+    }
+  }
+
+  &__cart {
+    .button--cart {
+      @media (max-width: 341px) {
+        padding: 10px;
+      }
+    }
+  }
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 520px) {
+      flex-direction: column;
+      row-gap: 10px;
+    }
   }
 
   &__logo {
@@ -23,6 +44,10 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 334px) {
+        font-size: 22px;
+      }
     }
 
     p {
