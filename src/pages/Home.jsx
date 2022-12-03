@@ -5,12 +5,26 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 
-function Home(props) {
+function Home() {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: 'популярности(возр.)',
+    sortProperty: 'rating',
+    sortReach: 'increase',
+  });
 
   useEffect(() => {
-    fetch('https://6388f4cbd94a7e5040ab61cb.mockapi.io/items')
+    setIsLoading(true);
+
+    fetch(
+      `https://6388f4cbd94a7e5040ab61cb.mockapi.io/items?${
+        categoryId ? `category=${categoryId}` : ''
+      }&sortBy=${sortType.sortProperty}${
+        sortType.sortReach === 'increase' ? '&order=asc' : '&order=desc'
+      }`,
+    )
       .then((response) => response.json())
       .then((json) => {
         setItems(json);
@@ -18,13 +32,18 @@ function Home(props) {
       });
 
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId, sortType]);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          categoryId={categoryId}
+          onClickCategory={(index) => {
+            setCategoryId(index);
+          }}
+        />
+        <Sort sortType={sortType} onClickSortType={(elem) => setSortType(elem)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

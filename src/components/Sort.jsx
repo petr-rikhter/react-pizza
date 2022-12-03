@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 
-function Sort(props) {
+function Sort({ sortType, onClickSortType }) {
   const [visibleSort, setVisibleSort] = useState(false);
-  const [toggleSort, setToggleSort] = useState(0);
 
-  const arrayOfSort = ['популярности', 'цене', 'алфавиту'];
-
-  const selectedHandler = (index) => {
-    setToggleSort(index);
-    setVisibleSort(!visibleSort);
-  };
+  const objectOfSort = [
+    { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
+    { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
+    { name: 'цене (возр.)', sortProperty: 'price', sortReach: 'increase' },
+    { name: 'цене (убыв.)', sortProperty: 'price', sortReach: 'decrease' },
+    { name: 'алфавиту (A-Я)', sortProperty: 'title', sortReach: 'increase' },
+    { name: 'алфавиту (Я-А)', sortProperty: 'title', sortReach: 'decrease' },
+  ];
 
   return (
     <div className="sort">
@@ -30,19 +31,22 @@ function Sort(props) {
           onClick={() => {
             setVisibleSort(!visibleSort);
           }}>
-          {arrayOfSort[toggleSort]}
+          {sortType.name}
         </span>
       </div>
       {visibleSort && (
         <div className="sort__popup">
           <ul>
-            {arrayOfSort.map((elem, index) => {
+            {objectOfSort.map((elem, index) => {
               return (
                 <li
-                  className={toggleSort === index ? 'active' : ''}
-                  onClick={() => selectedHandler(index)}
+                  className={sortType.name === elem.name ? 'active' : ''}
+                  onClick={() => {
+                    onClickSortType(elem);
+                    setVisibleSort(!visibleSort);
+                  }}
                   key={index}>
-                  {elem}
+                  {elem.name}
                 </li>
               );
             })}
