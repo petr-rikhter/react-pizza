@@ -5,8 +5,11 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-function Home({ searchValue }) {
+function Home() {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -40,7 +43,7 @@ function Home({ searchValue }) {
     return <PizzaBlock key={elem.id} {...elem}></PizzaBlock>;
   });
 
-  const skeletons = [...new Array(12)].map((_, index) => <PlaceHolder key={index} />);
+  const skeletons = [...new Array(4)].map((_, index) => <PlaceHolder key={index} />);
 
   return (
     <div className="container">
