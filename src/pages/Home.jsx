@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -11,6 +11,7 @@ import { SearchContext } from '../App';
 
 function Home() {
   const categoryId = useSelector((state) => state.filterReducer.categoryId);
+  const sortType = useSelector((state) => state.filterReducer.sortType);
 
   const { searchValue } = React.useContext(SearchContext);
 
@@ -18,11 +19,11 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   // const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: 'популярности(возр.)',
-    sortProperty: 'rating',
-    sortReach: 'increase',
-  });
+  // const [sortType, setSortType] = useState({
+  //   name: 'популярности(возр.)',
+  //   sortProperty: 'rating',
+  //   sortReach: 'increase',
+  // });
 
   useEffect(() => {
     setIsLoading(true);
@@ -52,13 +53,8 @@ function Home() {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-        // categoryId={categoryId}
-        // onClickCategory={(index) => {
-        //   setCategoryId(index);
-        // }}
-        />
-        <Sort sortType={sortType} onClickSortType={(elem) => setSortType(elem)} />
+        <Categories />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>

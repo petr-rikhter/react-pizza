@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
-function Sort({ sortType, onClickSortType }) {
+import { useSelector, useDispatch } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSlice';
+
+function Sort() {
   const [visibleSort, setVisibleSort] = useState(false);
+  const sortType = useSelector((state) => state.filterReducer.sortType);
+  const dispatch = useDispatch();
 
   const objectOfSort = [
     { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
@@ -42,7 +47,7 @@ function Sort({ sortType, onClickSortType }) {
                 <li
                   className={sortType.name === elem.name ? 'active' : ''}
                   onClick={() => {
-                    onClickSortType(elem);
+                    dispatch(setSortType(elem));
                     setVisibleSort(!visibleSort);
                   }}
                   key={index}>
