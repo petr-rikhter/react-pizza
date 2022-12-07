@@ -5,6 +5,7 @@ import { setSortType } from '../redux/slices/filterSlice';
 
 function Sort() {
   const [visibleSort, setVisibleSort] = useState(false);
+
   const sortType = useSelector((state) => state.filterReducer.sortType);
   const dispatch = useDispatch();
 

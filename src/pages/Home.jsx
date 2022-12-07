@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentPage } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -10,34 +12,31 @@ import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 
 function Home() {
-  const categoryId = useSelector((state) => state.filterReducer.categoryId);
-  const sortType = useSelector((state) => state.filterReducer.sortType);
+  const { categoryId, sortType, currentPage } = useSelector((state) => state.filterReducer);
+  const dispatch = useDispatch();
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [categoryId, setCategoryId] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [sortType, setSortType] = useState({
-  //   name: 'популярности(возр.)',
-  //   sortProperty: 'rating',
-  //   sortReach: 'increase',
-  // });
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
+  };
 
   useEffect(() => {
     setIsLoading(true);
 
-    fetch(
-      `https://6388f4cbd94a7e5040ab61cb.mockapi.io/items?page=${currentPage}&limit=4&${
-        categoryId ? `category=${categoryId}` : ''
-      }&sortBy=${sortType.sortProperty}${
-        sortType.sortReach === 'increase' ? '&order=asc' : '&order=desc'
-      }${searchValue ? `&search=${searchValue}` : ''}`,
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setItems(json);
+    axios
+      .get(
+        `https://6388f4cbd94a7e5040ab61cb.mockapi.io/items?page=${currentPage}&limit=4&${
+          categoryId ? `category=${categoryId}` : ''
+        }&sortBy=${sortType.sortProperty}${
+          sortType.sortReach === 'increase' ? '&order=asc' : '&order=desc'
+        }${searchValue ? `&search=${searchValue}` : ''}`,
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
 
@@ -58,7 +57,7 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-      <Pagination setCurrentPage={setCurrentPage} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 }
