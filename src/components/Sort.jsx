@@ -3,20 +3,20 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSortType } from '../redux/slices/filterSlice';
 
+export const objectOfSort = [
+  { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
+  { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
+  { name: 'цене (возр.)', sortProperty: 'price', sortReach: 'increase' },
+  { name: 'цене (убыв.)', sortProperty: 'price', sortReach: 'decrease' },
+  { name: 'алфавиту (A-Я)', sortProperty: 'title', sortReach: 'increase' },
+  { name: 'алфавиту (Я-А)', sortProperty: 'title', sortReach: 'decrease' },
+];
+
 function Sort() {
   const [visibleSort, setVisibleSort] = useState(false);
 
   const sortType = useSelector((state) => state.filterReducer.sortType);
   const dispatch = useDispatch();
-
-  const objectOfSort = [
-    { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
-    { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
-    { name: 'цене (возр.)', sortProperty: 'price', sortReach: 'increase' },
-    { name: 'цене (убыв.)', sortProperty: 'price', sortReach: 'decrease' },
-    { name: 'алфавиту (A-Я)', sortProperty: 'title', sortReach: 'increase' },
-    { name: 'алфавиту (Я-А)', sortProperty: 'title', sortReach: 'decrease' },
-  ];
 
   return (
     <div className="sort">
