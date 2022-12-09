@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './NotFound.module.scss';
 
-function NotFound(props) {
+function NotFound() {
   return (
     <h1 className={styles.root}>
       <span>🙁</span>

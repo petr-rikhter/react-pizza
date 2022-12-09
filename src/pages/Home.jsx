@@ -68,8 +68,8 @@ function Home() {
 
       axios
         .get(
-          `https://6388f4cbd94a7e5040ab61cb.mockapi.io/items?page=${currentPage}&limit=4&${
-            categoryId ? `category=${categoryId}` : ''
+          `https://6388f4cbd94a7e5040ab61cb.mockapi.io/items?page=${currentPage}&limit=4${
+            categoryId ? `&category=${categoryId}` : ''
           }&sortBy=${sortType.sortProperty}${
             sortType.sortReach === 'increase' ? '&order=asc' : '&order=desc'
           }${searchValue ? `&search=${searchValue}` : ''}`,
