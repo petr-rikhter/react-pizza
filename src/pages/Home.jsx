@@ -11,7 +11,6 @@ import Sort, { objectOfSort } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { useRef } from 'react';
 import { selectPizzas } from '../redux/slices/pizzaSlice';
 
@@ -21,10 +20,8 @@ function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { categoryId, sortType, currentPage } = useSelector(selectFilter);
+  const { categoryId, sortType, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzas);
-
-  const { searchValue } = React.useContext(SearchContext);
 
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
