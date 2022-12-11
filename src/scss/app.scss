@@ -24,6 +24,10 @@ body {
 .content {
   padding: 40px 0;
 
+  &__error {
+    margin: 30px auto;
+  }
+
   &__title {
     display: flex;
     justify-content: center;
