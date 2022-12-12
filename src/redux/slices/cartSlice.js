@@ -49,6 +49,13 @@ export const cartSlice = createSlice({
 
     removeOnePizza: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
+
+      state.totalPizzas = state.items.reduce((acc, current) => current.count + acc, 0);
+
+      state.totalPrice = state.items.reduce(
+        (acc, current) => current.price * current.count + acc,
+        0,
+      );
     },
 
     clearItems: (state) => {

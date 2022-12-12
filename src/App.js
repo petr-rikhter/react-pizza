@@ -1,11 +1,12 @@
 import './scss/app.scss';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Header from './components/Header';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { Routes, Route } from 'react-router-dom';
 import Cart from './pages/Cart';
+import FullPizza from './pages/FullPizza';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/react-pizza" element={<Home />} />
+          <Route path="/react-pizza/pizza/:id" element={<FullPizza />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>

@@ -4,8 +4,12 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  @media (max-width: 955px) {
+    padding: 20px 0;
+  }
+
   &__label {
-    @media (max-width: 651px) {
+    @media (max-width: 955px) {
       p {
         display: none;
       }
@@ -25,7 +29,7 @@
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 520px) {
+    @media (max-width: 850px) {
       flex-direction: column;
       row-gap: 10px;
     }

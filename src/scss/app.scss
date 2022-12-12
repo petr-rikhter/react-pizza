@@ -39,7 +39,6 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    // grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 10px;
 
     @media (max-width: 1400px) {
@@ -88,8 +87,13 @@ body {
   &--cart {
     max-width: 820px;
     margin: 90px auto;
+
     .content__title {
       margin: 0;
+    }
+
+    @media (max-width: 955px) {
+      margin: 25px auto;
     }
   }
 }
@@ -102,7 +106,12 @@ body {
   &__top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+
+    @media (max-width: 440px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
   }
 
   .content__title {
@@ -156,6 +165,7 @@ body {
 
   &__item {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
@@ -164,8 +174,7 @@ body {
     &-img {
       display: flex;
       align-items: center;
-      margin-right: 15px;
-      width: 10%;
+      width: 80px;
 
       img {
         width: 80px;
@@ -177,18 +186,38 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      width: 40%;
+      width: 283px;
+
+      @media (max-width: 740px) {
+        width: 200px;
+      }
+
+      @media (max-width: 450px) {
+        width: 110px;
+      }
 
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 590px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 351px) {
+          font-size: 13px;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+
+        @media (max-width: 590px) {
+          font-size: 11px;
+        }
       }
     }
 
@@ -197,6 +226,10 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      @media (max-width: 590px) {
+        flex-direction: column-reverse;
+      }
 
       &-minus {
         svg {
@@ -208,6 +241,14 @@ body {
 
       b {
         font-size: 22px;
+
+        @media (max-width: 590px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 351px) {
+          font-size: 13px;
+        }
       }
     }
 
@@ -215,12 +256,19 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
 
       b {
         font-weight: bold;
         font-size: 22px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 590px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 351px) {
+          font-size: 11px;
+        }
       }
     }
 
@@ -228,10 +276,13 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4%;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
+
+        @media (max-width: 590px) {
+          display: none;
+        }
       }
 
       svg {
@@ -264,8 +315,19 @@ body {
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 510px) {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
       span {
         font-size: 22px;
+
+        @media (max-width: 510px) {
+          font-size: 18px;
+        }
 
         &:last-of-type {
           b {
@@ -279,6 +341,13 @@ body {
       display: flex;
       justify-content: space-between;
       margin-top: 40px;
+
+      @media (max-width: 510px) {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 10px;
+      }
 
       .go-back-btn {
         display: flex;
@@ -338,11 +407,6 @@ body {
       letter-spacing: 0.01em;
       color: #777777;
     }
-
-    // icon {
-    //   position: relative;
-    //   top: 2px;
-    // }
 
     img {
       display: block;
