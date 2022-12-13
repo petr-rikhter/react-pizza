@@ -72,9 +72,9 @@ function Home() {
   };
 
   useEffect(() => {
-    if (window.location.search) {
-      getPizzas();
-    }
+    // if (window.location.search) {
+    getPizzas();
+    // }
   }, [categoryId, sortType, searchValue, currentPage]);
 
   const pizzas = items.map((elem) => {

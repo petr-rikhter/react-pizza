@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const typeNames = ['Тонкое', 'Традиционное'];
 
-function PizzaBlock({ title, price, imageUrl, id, rating, sizes, types }) {
+function PizzaBlock({ title, price, imageUrl, id, sizes, types }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartReducer.items.find((obj) => obj.id === id));
   const [size, setSize] = useState(0);
