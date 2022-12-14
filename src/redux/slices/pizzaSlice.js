@@ -10,7 +10,6 @@ export const fetchPizza = createAsyncThunk('pizza/fetchPizzaStatus', async (para
       sortType.sortReach === 'increase' ? '&order=asc' : '&order=desc'
     }${searchValue ? `&search=${searchValue}` : ''}`,
   );
-
   return data;
 });
 

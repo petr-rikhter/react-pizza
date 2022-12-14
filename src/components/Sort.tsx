@@ -5,7 +5,13 @@ import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter, setSortType } from '../redux/slices/filterSlice';
 
-export const objectOfSort = [
+type SortType = {
+  name: string;
+  sortProperty: string;
+  sortReach: string;
+};
+
+export const objectOfSort: SortType[] = [
   { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
   { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
   { name: 'цене (возр.)', sortProperty: 'price', sortReach: 'increase' },
@@ -16,13 +22,13 @@ export const objectOfSort = [
 
 function Sort() {
   const [visibleSort, setVisibleSort] = useState(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const { sortType } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: any) => {
       if (!e.path.includes(sortRef.current)) {
         setVisibleSort(false);
       }

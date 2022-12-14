@@ -5,9 +5,22 @@ import { Link } from 'react-router-dom';
 
 const typeNames = ['Тонкое', 'Традиционное'];
 
-function PizzaBlock({ title, price, imageUrl, id, sizes, types }) {
+type PizzaBlockProps = {
+  key: number;
+  id: string;
+  title: string;
+  sizes: number[];
+  types: number[];
+  imageUrl: string;
+  count: number;
+  price: number;
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, price, imageUrl, id, sizes, types }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => state.cartReducer.items.find((obj) => obj.id === id));
+  const cartItem = useSelector((state: any) =>
+    state.cartReducer.items.find((obj: any) => obj.id === id),
+  );
   const [size, setSize] = useState(0);
   const [type, setType] = useState(0);
 
@@ -80,6 +93,6 @@ function PizzaBlock({ title, price, imageUrl, id, sizes, types }) {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;

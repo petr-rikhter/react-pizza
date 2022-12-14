@@ -14,7 +14,7 @@ import Pagination from '../components/Pagination';
 import { useRef } from 'react';
 import { selectPizzas } from '../redux/slices/pizzaSlice';
 
-function Home() {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
@@ -23,8 +23,8 @@ function Home() {
   const { categoryId, sortType, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzas);
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (id: number) => {
+    dispatch(setCurrentPage(id));
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function Home() {
     // }
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((elem) => {
+  const pizzas = items.map((elem: any) => {
     return <PizzaBlock key={elem.id} {...elem}></PizzaBlock>;
   });
 
@@ -101,6 +101,6 @@ function Home() {
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
-}
+};
 
 export default Home;

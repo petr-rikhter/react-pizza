@@ -8,15 +8,16 @@ import { useState } from 'react';
 import { setSearchValue } from '../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const inputRef = useRef('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const clearInputHandler = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputRef.current.focus();
+
+    inputRef.current?.focus();
   };
 
   const sendInputValueDelay = useCallback(
@@ -26,7 +27,7 @@ const Search = () => {
     [],
   );
 
-  const inputHandler = (event) => {
+  const inputHandler = (event: any) => {
     setValue(event.target.value);
     sendInputValueDelay(event.target.value);
   };

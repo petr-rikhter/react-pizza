@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const PlaceHolder = (props) => (
+const PlaceHolder: React.FC = (props) => (
   <ContentLoader
     className="pizza-block"
     speed={2}
