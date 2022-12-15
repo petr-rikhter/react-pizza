@@ -11,6 +11,10 @@ type SortType = {
   sortReach: string;
 };
 
+type PopUpClick = MouseEvent & {
+  path: Node[];
+};
+
 export const objectOfSort: SortType[] = [
   { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
   { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
@@ -28,8 +32,10 @@ function Sort() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!e.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopUpClick;
+
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setVisibleSort(false);
       }
     };

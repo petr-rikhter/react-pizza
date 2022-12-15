@@ -27,7 +27,7 @@ const Search: React.FC = () => {
     [],
   );
 
-  const inputHandler = (event: any) => {
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     sendInputValueDelay(event.target.value);
   };

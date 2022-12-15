@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFilter, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { selectPizzas } from '../redux/slices/pizzaSlice';
 import { fetchPizza } from '../redux/slices/pizzaSlice';
+import { selectFilter, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort, { objectOfSort } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 import Pagination from '../components/Pagination';
-import { useRef } from 'react';
-import { selectPizzas } from '../redux/slices/pizzaSlice';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -60,6 +60,7 @@ const Home: React.FC = () => {
 
   const getPizzas = async () => {
     dispatch(
+      //@ts-ignore
       fetchPizza({
         currentPage,
         categoryId,
