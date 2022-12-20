@@ -4,7 +4,8 @@
 
 - Html
 - CSS
-- React
+- React (react router)
+- Redux toolkit
 - Typescript 
 - Адаптивная верстка
 - MockApi
