@@ -6,21 +6,33 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPizzas } from '../redux/slices/pizzaSlice';
 import { fetchPizza } from '../redux/slices/pizzaSlice';
-import { selectFilter, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import {
+  filterSliceState,
+  selectFilter,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
 import Sort, { objectOfSort } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 import Pagination from '../components/Pagination';
+import { useAppDispatch } from '../redux/store';
+
+// type SortType = {
+//   name: string;
+//   sortProperty: string;
+//   sortReach: string;
+// };
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { categoryId, sortType, currentPage, searchValue } = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzas);
 
   const onChangePage = (id: number) => {
@@ -30,7 +42,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
-        sortProperty: sortType.sortProperty,
+        sortProperty: sort.sortProperty,
         categoryId,
         currentPage,
       });
@@ -39,13 +51,15 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort, searchValue, currentPage]);
 
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
 
       const sort = objectOfSort.find((obj) => obj.sortProperty === params.sortProperty);
+
+      console.log(params, sort);
 
       dispatch(
         setFilters({
@@ -60,11 +74,10 @@ const Home: React.FC = () => {
 
   const getPizzas = async () => {
     dispatch(
-      //@ts-ignore
       fetchPizza({
         currentPage,
         categoryId,
-        sortType,
+        sort,
         searchValue,
       }),
     );
@@ -76,7 +89,7 @@ const Home: React.FC = () => {
     // if (window.location.search) {
     getPizzas();
     // }
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort, searchValue, currentPage]);
 
   const pizzas = items.map((elem: any) => {
     return <PizzaBlock key={elem.id} {...elem}></PizzaBlock>;

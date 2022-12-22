@@ -1,6 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = {
+export type CartItem = {
+  id: string;
+  title: string;
+  size: number;
+  type: string;
+  imageUrl: string;
+  count: number;
+  price: number;
+};
+
+interface CartSliceState {
+  totalPizzas: number;
+  totalPrice: number;
+  items: CartItem[];
+}
+
+const initialState: CartSliceState = {
   totalPizzas: 0,
   totalPrice: 0,
   items: [],
@@ -10,7 +27,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state, action: PayloadAction<CartItem>) => {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
 
       if (findItem) {
@@ -30,13 +47,14 @@ export const cartSlice = createSlice({
       );
     },
 
-    removeItem: (state, action) => {
+    removeItem: (state, action: PayloadAction<CartItem>) => {
       if (action.payload.count <= 1) {
         state.items = state.items.filter((item) => item.id !== action.payload.id);
       } else {
         const findItem = state.items.find((obj) => obj.id === action.payload.id);
-
-        findItem.count--;
+        if (findItem) {
+          findItem.count--;
+        }
       }
 
       state.totalPizzas = state.items.reduce((acc, current) => current.count + acc, 0);
@@ -47,7 +65,7 @@ export const cartSlice = createSlice({
       );
     },
 
-    removeOnePizza: (state, action) => {
+    removeOnePizza: (state, action: PayloadAction<CartItem>) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
 
       state.totalPizzas = state.items.reduce((acc, current) => current.count + acc, 0);
@@ -71,7 +89,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const selectCart = (state) => state.cartReducer;
+export const selectCart = (state: RootState) => state.cartReducer;
 
 export const { addItem, removeItem, clearItems, removeOnePizza } = cartSlice.actions;
 

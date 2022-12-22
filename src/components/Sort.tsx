@@ -28,7 +28,7 @@ function Sort() {
   const [visibleSort, setVisibleSort] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const { sortType } = useSelector(selectFilter);
+  const { sort } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function Sort() {
           onClick={() => {
             setVisibleSort(!visibleSort);
           }}>
-          {sortType.name}
+          {sort.name}
         </span>
       </div>
       {visibleSort && (
@@ -75,7 +75,7 @@ function Sort() {
             {objectOfSort.map((elem, index) => {
               return (
                 <li
-                  className={sortType.name === elem.name ? 'active' : ''}
+                  className={sort.name === elem.name ? 'active' : ''}
                   onClick={() => {
                     dispatch(setSortType(elem));
                     setVisibleSort(!visibleSort);
