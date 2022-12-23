@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
 import { CartItem } from './cartSlice';
-import { Sort } from './filterSlice';
+import { Sorted } from './filterSlice';
 
-type Pizza = {
+export type Pizza = {
   key?: number;
   id?: string;
   title?: string;
@@ -13,10 +13,10 @@ type Pizza = {
   imageUrl?: string;
   count?: number;
   price?: number;
-  searchValue?: string;
-  currentPage?: number;
-  categoryId?: number;
-  sort: Sort;
+  searchValue: string;
+  currentPage: number;
+  categoryId: number;
+  sort: Sorted;
 };
 
 interface PizzaSliceState {

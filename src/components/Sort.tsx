@@ -3,19 +3,13 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter, setSortType } from '../redux/slices/filterSlice';
-
-type SortType = {
-  name: string;
-  sortProperty: string;
-  sortReach: string;
-};
+import { selectFilter, setSortType, Sorted } from '../redux/slices/filterSlice';
 
 type PopUpClick = MouseEvent & {
   path: Node[];
 };
 
-export const objectOfSort: SortType[] = [
+export const objectOfSort: Sorted[] = [
   { name: 'популярности(возр.)', sortProperty: 'rating', sortReach: 'increase' },
   { name: 'популярности (убыв.)', sortProperty: 'rating', sortReach: 'decrease' },
   { name: 'цене (возр.)', sortProperty: 'price', sortReach: 'increase' },
@@ -77,6 +71,7 @@ function Sort() {
                 <li
                   className={sort.name === elem.name ? 'active' : ''}
                   onClick={() => {
+                    console.log(elem);
                     dispatch(setSortType(elem));
                     setVisibleSort(!visibleSort);
                   }}

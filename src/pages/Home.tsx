@@ -4,13 +4,14 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPizzas } from '../redux/slices/pizzaSlice';
+import { Pizza, selectPizzas } from '../redux/slices/pizzaSlice';
 import { fetchPizza } from '../redux/slices/pizzaSlice';
 import {
   filterSliceState,
   selectFilter,
   setCurrentPage,
   setFilters,
+  Sorted,
 } from '../redux/slices/filterSlice';
 
 import Categories from '../components/Categories';
@@ -19,12 +20,6 @@ import PizzaBlock from '../components/PizzaBlock';
 import PlaceHolder from '../components/PlaceHolder';
 import Pagination from '../components/Pagination';
 import { useAppDispatch } from '../redux/store';
-
-// type SortType = {
-//   name: string;
-//   sortProperty: string;
-//   sortReach: string;
-// };
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -59,12 +54,16 @@ const Home: React.FC = () => {
 
       const sort = objectOfSort.find((obj) => obj.sortProperty === params.sortProperty);
 
-      console.log(params, sort);
+      if (sort) {
+        params.sort = sort;
+      }
 
       dispatch(
         setFilters({
-          ...params,
-          sort,
+          searchValue: '',
+          currentPage: Number(params.currentPage),
+          categoryId: Number(params.categoryId),
+          sort: sort || objectOfSort[0],
         }),
       );
 

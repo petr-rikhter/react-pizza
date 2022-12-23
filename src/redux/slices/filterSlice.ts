@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { CartItem } from './cartSlice';
 
-export type Sort = {
+export type Sorted = {
   name: string;
   sortProperty: 'rating' | 'price' | 'title';
   sortReach: 'increase' | 'decrease';
@@ -12,7 +12,7 @@ export interface filterSliceState {
   searchValue: string;
   currentPage: number;
   categoryId: number;
-  sort: Sort;
+  sort: Sorted;
 }
 
 const initialState: filterSliceState = {
@@ -38,7 +38,7 @@ export const filterSlice = createSlice({
       state.searchValue = action.payload;
     },
 
-    setSortType: (state, categoty: PayloadAction<Sort>) => {
+    setSortType: (state, categoty: PayloadAction<Sorted>) => {
       state.sort = categoty.payload;
     },
 
@@ -48,7 +48,7 @@ export const filterSlice = createSlice({
 
     setFilters: (state, filters: PayloadAction<filterSliceState>) => {
       if (Object.keys(filters.payload).length) {
-        console.log(filters.payload);
+        // console.log(filters.payload);
         state.currentPage = Number(filters.payload.currentPage);
         state.categoryId = Number(filters.payload.categoryId);
         state.sort = filters.payload.sort;
